@@ -22,10 +22,10 @@ function extractJobDescription() {
 
     // Convert set to array, sort by length (longest first), and return the best one
     let jobDescriptions = [...jobTextSet].sort((a, b) => b.length - a.length);
-    console.log("Job descriptions found:", jobDescriptions);
+    // console.log("Job descriptions found:", jobDescriptions);
 
     let finalJobText = jobDescriptions.length ? cleanJobDescription(jobDescriptions[0]) : "Job description not found.";
-    console.log("Final job description text:", finalJobText);
+    // console.log("Final job description text:", finalJobText);
 
     // Send extracted job description to the popup or background script
     chrome.runtime.sendMessage({

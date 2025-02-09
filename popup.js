@@ -48,3 +48,48 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         document.getElementById("jobDescription").value = message.text;
     }
 });
+
+
+document.getElementById("coverLetterBtn").addEventListener("click", async () => {
+    // Collect user inputs from the popup
+    var jobDescription = document.getElementById("jobDescription").value.trim();
+    var resumeText = document.getElementById("resumeText").value.trim();
+    var extraKnowledge = document.getElementById("extraKnowledge").value.trim();
+    var coverLetterTemplate = document.getElementById("coverLetterTemplate").value.trim();
+    var apiKey = document.getElementById("apiKey").value.trim();
+    var llmSelect = document.getElementById("llmSelect").value;
+
+    // Validate inputs
+    if (!jobDescription || !resumeText || !coverLetterTemplate || !apiKey) {
+        alert("Please fill in the required fields: Job Description, Resume, Cover Letter Template, and API Key.");
+        return;
+    }
+
+    const requestData = {
+        action: "generateCoverLetter",
+        data: {
+            jobDescription,
+            resumeText,
+            extraKnowledge,
+            coverLetterTemplate,
+            apiKey,
+            llmSelect
+        }
+    };
+
+    // Send message to background.js
+    chrome.runtime.sendMessage(requestData, (response) => {
+        if (chrome.runtime.lastError) {
+            console.error("Error:", chrome.runtime.lastError);
+            alert("Failed to send request. Please try again.");
+            return;
+        }
+        if (response) {
+            document.getElementById("coverLetterOutput").value = response;
+            document.getElementById("coverLetterContainer").style.display = "block";
+        } else {
+            console.warn("No cover letter generated.");
+        }
+    });
+});
+    

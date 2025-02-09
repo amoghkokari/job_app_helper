@@ -20,8 +20,8 @@
 
     <label for="llmSelect">Select LLM:</label>
     <select id="llmSelect">
-        <option value="openai">OpenAI</option>
-        <option value="gemini">Gemini</option>
+        <!-- <option value="openai">OpenAI</option> -->
+        <option value="Gemini">Gemini</option>
     </select>
 
     <label for="apiKey">API Key:</label>
@@ -31,6 +31,13 @@
 
     <button id="answerBtn">Answer This Question</button>
     <button id="coverLetterBtn">Generate Cover Letter</button>
+
+    <!-- New Section for displaying the generated cover letter -->
+    <div id="coverLetterContainer">
+        <h3>Generated Cover Letter</h3>
+        <textarea id="coverLetterOutput" rows="10" readonly></textarea>
+        <button id="copyCoverLetter">Copy to Clipboard</button>
+    </div>
 
     <script src="popup.js"></script>
 </body>
