@@ -44,7 +44,6 @@ body {
   
   /* Styles for the generated cover letter */
 #coverLetterContainer {
-    display: none; /* Initially hidden */
     margin-top: 15px;
     padding: 10px;
     background: white;
@@ -60,7 +59,4 @@ body {
     font-size: 14px;
     border-radius: 5px;
     background-color: #f5f5f5;
-}
-.hidden {
-    display: none;
 }

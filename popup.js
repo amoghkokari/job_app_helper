@@ -4,6 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("extraKnowledge").value = localStorage.getItem("extraKnowledge") || "";
     document.getElementById("coverLetterTemplate").value = localStorage.getItem("coverLetterTemplate") || "";
     document.getElementById("apiKey").value = localStorage.getItem("apiKey") || "";
+
+    chrome.storage.local.get('generatedCoverLetter', (data) => {
+        savedCoverLetter = data.generatedCoverLetter;
+        
+        if (savedCoverLetter) {
+            document.getElementById("coverLetterOutput").value = savedCoverLetter;
+            document.getElementById("coverLetterContainer").style.display = "block"; // Show the output container
+        } else {
+            document.getElementById("coverLetterContainer").style.display = "none"; // Hide if no saved cover letter
+        }
+    });
     
     // Add event listeners to save changes automatically
     document.getElementById("resumeText").addEventListener("input", saveData);
@@ -65,7 +76,7 @@ document.getElementById("coverLetterBtn").addEventListener("click", async () => 
         return;
     }
 
-    const requestData = {
+    var requestData = {
         action: "generateCoverLetter",
         data: {
             jobDescription,
@@ -92,4 +103,23 @@ document.getElementById("coverLetterBtn").addEventListener("click", async () => 
         }
     });
 });
+
+document.getElementById("copyCoverLetter").addEventListener("click", () => {
+    coverLetterText = document.getElementById("coverLetterOutput").value;
+
+    if (coverLetterText) {
+        // Use the Clipboard API to copy the text
+        navigator.clipboard.writeText(coverLetterText)
+            .then(() => {
+                alert("Cover letter copied to clipboard!");
+            })
+            .catch((error) => {
+                console.error("Failed to copy text: ", error);
+                alert("Failed to copy cover letter. Please try again.");
+            });
+    } else {
+        alert("No cover letter to copy.");
+    }
+});
+
     

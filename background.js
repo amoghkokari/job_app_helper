@@ -40,6 +40,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         console.log("Recieved response from llm")
           if (responseData) {
             // console.log("Recieved Response:", responseData);
+            chrome.storage.local.set({ 'generatedCoverLetter': responseData}, () => {
+              console.log('Cover letter saved to storage');
+          });
             sendResponse(responseData);
           } else {
               console.warn("No valid response received.");
